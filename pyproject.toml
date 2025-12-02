@@ -21,8 +21,3 @@ packages = ["src/market_index_mcp"]
 
 [tool.hatch.build.targets.wheel.sources]
 "src" = ""
-```
-
-## 修正2: `requirements.txt` も修正
-```
-mcp[cli]>=1.0.0
