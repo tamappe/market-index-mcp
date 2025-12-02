@@ -1,12 +1,17 @@
 import sqlite3
 import os
+import sys
 from mcp.server.fastmcp import FastMCP
+
+def log(msg):
+    """ログ出力（stderr経由でMCPと干渉しない）"""
+    print(msg, file=sys.stderr)
 
 # DB自動生成
 DB_PATH = os.path.join(os.path.dirname(__file__), "market_data.db")
 
 if not os.path.exists(DB_PATH):
-    print("📊 初回起動: データをダウンロード中...")
+    log("📊 初回起動: データをダウンロード中...")
     from .setup_db import setup
     setup(DB_PATH)
 
