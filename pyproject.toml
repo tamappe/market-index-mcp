@@ -4,13 +4,14 @@ build-backend = "hatchling.build"
 
 [project]
 name = "market-index-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "MCP server for market index data (S&P500, NASDAQ, etc.)"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
 dependencies = [
     "mcp[cli]>=1.0.0",
+    "certifi",
 ]
 
 [project.scripts]
