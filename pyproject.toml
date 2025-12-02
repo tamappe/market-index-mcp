@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "market-index-mcp"
+version = "0.1.0"
+description = "MCP server for market index data (S&P500, NASDAQ, etc.)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+dependencies = [
+    "mcp>=1.0.0",
+]
+
+[project.scripts]
+market-index-mcp = "market_index_mcp:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/market_index_mcp"]
+```
+
+---
+
+### ファイル7: `requirements.txt`
+```
+mcp>=1.0.0
