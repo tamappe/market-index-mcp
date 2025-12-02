@@ -2,8 +2,8 @@ name: Update Market Data
 
 on:
   schedule:
-    - cron: '0 0 * * 0'  # 毎週日曜 UTC 0:00
-  workflow_dispatch:      # 手動実行可能
+    - cron: '0 0 * * 1-5'  # 平日 JST 9:00 (UTC 0:00)
+  workflow_dispatch:       # 手動実行可能
 
 jobs:
   update:
