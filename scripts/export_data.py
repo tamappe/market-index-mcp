@@ -17,27 +17,32 @@ def export():
     
     # 株価データ取得（ページネーション対応）
     all_data = []
-    offset = 0
-    limit = 10000
+    limit = 1000  # Supabaseのデフォルト上限
     
-    while True:
-        response = supabase.table("stock_daily") \
-            .select("symbol,date,open,high,low,close,volume") \
-            .order("symbol") \
-            .order("date") \
-            .range(offset, offset + limit - 1) \
-            .execute()
+    for sym in symbols:
+        symbol = sym["symbol"]
+        print(f"  {symbol} を取得中...")
+        offset = 0
         
-        if not response.data:
-            break
+        while True:
+            response = supabase.table("stock_daily") \
+                .select("symbol,date,open,high,low,close,volume") \
+                .eq("symbol", symbol) \
+                .order("date") \
+                .range(offset, offset + limit - 1) \
+                .execute()
             
-        all_data.extend(response.data)
-        print(f"  取得中... {len(all_data)}件")
+            if not response.data:
+                break
+                
+            all_data.extend(response.data)
+            
+            if len(response.data) < limit:
+                break
+                
+            offset += limit
         
-        if len(response.data) < limit:
-            break
-            
-        offset += limit
+        print(f"    → {symbol}: 累計 {len(all_data)}件")
     
     print(f"✅ 合計: {len(all_data)}件")
     
