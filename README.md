@@ -25,7 +25,7 @@ S&P500、NASDAQ100、日経225などの市場指標データを自然言語で�
       "command": "uvx",
       "args": ["market-index-mcp"],
       "env": {
-        "MCP_REPO_OWNER": "YOUR_GITHUB_USERNAME",
+        "MCP_REPO_OWNER": "tamappe",
         "MCP_REPO_NAME": "market-index-mcp"
       }
     }
@@ -35,7 +35,7 @@ S&P500、NASDAQ100、日経225などの市場指標データを自然言語で�
 
 ### 手動インストール
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/market-index-mcp.git
+git clone https://github.com/tamappe/market-index-mcp.git
 cd market-index-mcp
 pip install -e .
 ```
