@@ -7,7 +7,7 @@ DATA_URL = "https://github.com/{owner}/{repo}/releases/download/data-latest/mark
 
 def get_data_url():
     # 環境変数またはデフォルト値
-    owner = os.environ.get("MCP_REPO_OWNER", "YOUR_GITHUB_USERNAME")
+    owner = os.environ.get("MCP_REPO_OWNER", "tamappe")
     repo = os.environ.get("MCP_REPO_NAME", "market-index-mcp")
     return DATA_URL.format(owner=owner, repo=repo)
 
