@@ -10,18 +10,19 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
 dependencies = [
-    "mcp>=1.0.0",
+    "mcp[cli]>=1.0.0",
 ]
 
 [project.scripts]
-market-index-mcp = "market_index_mcp:main"
+market-index-mcp = "market_index_mcp.server:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/market_index_mcp"]
+
+[tool.hatch.build.targets.wheel.sources]
+"src" = ""
 ```
 
----
-
-### ファイル7: `requirements.txt`
+## 修正2: `requirements.txt` も修正
 ```
-mcp>=1.0.0
+mcp[cli]>=1.0.0
