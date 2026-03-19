@@ -135,6 +135,58 @@ def get_price_on_date(symbol: str, date: str) -> dict:
     }
 
 @mcp.tool()
+def get_daily_prices(symbol: str, start_date: str, end_date: str) -> dict:
+    """
+    指定銘柄・期間の日次価格データを一括取得
+
+    Args:
+        symbol: 銘柄コード (例: ^GSPC, ^NDX)
+        start_date: 開始日 (YYYY-MM-DD)
+        end_date: 終了日 (YYYY-MM-DD)
+    """
+    conn = get_db()
+    cursor = conn.cursor()
+
+    # 銘柄名取得
+    cursor.execute("SELECT name FROM symbols WHERE symbol = ?", (symbol,))
+    name_row = cursor.fetchone()
+    name = name_row[0] if name_row else symbol
+
+    # 期間内の全日次データを取得
+    cursor.execute("""
+        SELECT date, open, high, low, close, volume
+        FROM stock_daily
+        WHERE symbol = ? AND date BETWEEN ? AND ?
+        ORDER BY date ASC
+    """, (symbol, start_date, end_date))
+
+    rows = cursor.fetchall()
+    conn.close()
+
+    if not rows:
+        return {"error": f"データなし: {symbol} ({start_date} ~ {end_date})"}
+
+    data = [
+        {
+            "date": row[0],
+            "open": row[1],
+            "high": row[2],
+            "low": row[3],
+            "close": row[4],
+            "volume": row[5]
+        }
+        for row in rows
+    ]
+
+    return {
+        "symbol": symbol,
+        "name": name,
+        "period": f"{start_date} ~ {end_date}",
+        "count": len(data),
+        "data": data
+    }
+
+@mcp.tool()
 def compare_symbols(symbols: list, start_date: str, end_date: str) -> list:
     """
     複数銘柄を比較
